@@ -1,4 +1,4 @@
-dim 100 100
+dim 60 60
 
 %Triange: h = 30, OA = 20 (O - orthocentre)
 %resulting: a/2 = 17.32, radius of main rotation: 5.358 (semi radius = 2.679)
@@ -6,9 +6,9 @@ dim 100 100
 %constants
 number r 2.679
 number rT 20
-number rectA 32.579
-number rectB 67.42
-point R 50 50
+number rectA 12.58
+number rectB 47.40
+point R 30 30
 point rect1 rectA rectA
 point rect2 rectA rectB
 point rect3 rectB rectB
@@ -33,8 +33,7 @@ point count 10 10 10 82
 animation_frames 1080 60
 
 %drawing triangle
-cmark R
-mark_lb R
+cmark_lb R
 
 %drawing O relative to the centre of its rotation around point R (main rotation)
 gety t count
@@ -53,11 +52,6 @@ expression yA { rT*sin(t) + yO }
 
 point A xA yA
 
-getx xA A
-gety yA A
-getx xO O
-gety yO O
-
 expression tempAx { xA-xO }
 expression tempAy { yA-yO }
 
@@ -65,8 +59,7 @@ expression tempAy { yA-yO }
 expression xA { tempAx*cos(angl30) - tempAy*sin(angl30)+ xO }
 expression yA { tempAy*cos(angl30) + tempAx*sin(angl30)+ yO }
 point A xA yA
-cmark A
-mark_lb A
+cmark_lb A
 double
 trace A 255 0 0
 normal
@@ -78,15 +71,13 @@ expression tempAy { yA-yO }
 expression xB { tempAx*cos(angl120) - tempAy*sin(angl120)+ xO }
 expression yB { tempAy*cos(angl120) + tempAx*sin(angl120)+ yO }
 point B xB yB
-cmark B
-mark_lb B
+cmark_lb B
 
 %create C with rotation relative to A around centre of secondery rotation around O
 expression xC { tempAx*cos(angl240) - tempAy*sin(angl240)+ xO }
 expression yC { tempAy*cos(angl240) + tempAx*sin(angl240)+ yO }
 point C xC yC
-cmark C
-mark_lb C
+cmark_lb C
 
 drawdashsegment  A  B
 drawdashsegment  A  C
