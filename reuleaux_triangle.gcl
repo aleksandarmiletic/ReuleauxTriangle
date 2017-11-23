@@ -1,20 +1,13 @@
 dim 100 100
 
+%Triange: h = 30, OA = 20 (O - orthocentre)
+%resulting: a/2 = 17.32, radius of main rotation: 5.358 (semi radius = 2.679)
+
 %constants
-%triange has h=30
-%14.642 radius of main rotation
-% real radius 5.358
-%a/2 = 17.32
-% r -> 2.679
 number r 2.679
 number rT 20
-number rectA 32.679
-number rectB 67.32
-expression a { 2*sqrt(3)/3 - 1 }
-number rE 2.36185
-expression rE2 { 2/rE }
-%point A 40 40
-%point O 57.321 50
+number rectA 32.579
+number rectB 67.42
 point R 50 50
 point rect1 rectA rectA
 point rect2 rectA rectB
@@ -30,28 +23,29 @@ color 0 0 0
 
 getx xR R
 gety yR R
-point count 10 10 10 154
 
 expression m_ang {sqrt(3600)}
 expression angl120 {2*3.1415/3}
 expression angl240 {4*3.1415/3}
 expression angl30 {3.1415/6}
 
-animation_frames 2160 60
+point count 10 10 10 82
+animation_frames 1080 60
 
 %drawing triangle
 cmark R
+mark_lb R
 
+%drawing O relative to the centre of its rotation around point R (main rotation)
 gety t count
 expression t { (t-10)*10/180 * 3.1415 * 3}
-%expression xO { r*sin(t) + xR }
-%expression yO { r*cos(t) + yR }
-expression xO { a*pow(cos(t), rE2) + xR }
-expression yO { a*pow(sin(t), rE2) + yR}
+expression xO { r*sin(t) + xR }
+expression yO { r*cos(t) + yR }
 
 point O xO yO
 cmark O
 
+%drawing A relative to the centre of its rotation around point O (secondery rotation - rotation of triangle around its self)
 gety t count
 expression t { (t-10)*10/180 * 3.1415}
 expression xA { rT*cos(t) + xO }
@@ -67,24 +61,27 @@ gety yO O
 expression tempAx { xA-xO }
 expression tempAy { yA-yO }
 
-%rotate initial point A
+%rotate initial point A around centre of secondery rotation around O
 expression xA { tempAx*cos(angl30) - tempAy*sin(angl30)+ xO }
 expression yA { tempAy*cos(angl30) + tempAx*sin(angl30)+ yO }
 point A xA yA
 cmark A
 mark_lb A
+double
 trace A 255 0 0
+normal
 
 expression tempAx { xA-xO }
 expression tempAy { yA-yO }
 
-%create B with rotation
+%create B with rotation relative to A around centre of secondery rotation around O
 expression xB { tempAx*cos(angl120) - tempAy*sin(angl120)+ xO }
 expression yB { tempAy*cos(angl120) + tempAx*sin(angl120)+ yO }
 point B xB yB
 cmark B
 mark_lb B
-%create C with rotation
+
+%create C with rotation relative to A around centre of secondery rotation around O
 expression xC { tempAx*cos(angl240) - tempAy*sin(angl240)+ xO }
 expression yC { tempAy*cos(angl240) + tempAx*sin(angl240)+ yO }
 point C xC yC
@@ -98,13 +95,4 @@ drawdashsegment  B C
 drawarc A B m_ang
 drawarc B C m_ang
 drawarc C A m_ang
-
-%color 200 200 200
-%fillarc A B m_ang
-%fillarc B C m_ang
-%fillarc C A m_ang
-%color 0 0 0
-
-
-
 
