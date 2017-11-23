@@ -24,10 +24,10 @@ color 0 0 0
 getx xR R
 gety yR R
 
-expression m_ang {sqrt(3600)}
-expression angl120 {2*3.1415/3}
-expression angl240 {4*3.1415/3}
-expression angl30 {3.1415/6}
+expression m_ang { sqrt(3600) }
+expression angl120 { 2*3.1415/3 }
+expression angl240 { 4*3.1415/3 }
+expression angl30 { 3.1415/6 }
 
 point count 10 10 10 82
 animation_frames 1080 60
