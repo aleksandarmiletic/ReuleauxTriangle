@@ -1,0 +1,110 @@
+dim 100 100
+
+%constants
+%triange has h=30
+%14.642 radius of main rotation
+% real radius 5.358
+%a/2 = 17.32
+% r -> 2.679
+number r 2.679
+number rT 20
+number rectA 32.679
+number rectB 67.32
+expression a { 2*sqrt(3)/3 - 1 }
+number rE 2.36185
+expression rE2 { 2/rE }
+%point A 40 40
+%point O 57.321 50
+point R 50 50
+point rect1 rectA rectA
+point rect2 rectA rectB
+point rect3 rectB rectB
+point rect4 rectB rectA
+
+color 0 0 255
+drawdashsegment  rect1 rect2
+drawdashsegment  rect2  rect3
+drawdashsegment  rect3 rect4
+drawdashsegment  rect4 rect1
+color 0 0 0
+
+getx xR R
+gety yR R
+point count 10 10 10 154
+
+expression m_ang {sqrt(3600)}
+expression angl120 {2*3.1415/3}
+expression angl240 {4*3.1415/3}
+expression angl30 {3.1415/6}
+
+animation_frames 2160 60
+
+%drawing triangle
+cmark R
+
+gety t count
+expression t { (t-10)*10/180 * 3.1415 * 3}
+%expression xO { r*sin(t) + xR }
+%expression yO { r*cos(t) + yR }
+expression xO { a*pow(cos(t), rE2) + xR }
+expression yO { a*pow(sin(t), rE2) + yR}
+
+point O xO yO
+cmark O
+
+gety t count
+expression t { (t-10)*10/180 * 3.1415}
+expression xA { rT*cos(t) + xO }
+expression yA { rT*sin(t) + yO }
+
+point A xA yA
+
+getx xA A
+gety yA A
+getx xO O
+gety yO O
+
+expression tempAx { xA-xO }
+expression tempAy { yA-yO }
+
+%rotate initial point A
+expression xA { tempAx*cos(angl30) - tempAy*sin(angl30)+ xO }
+expression yA { tempAy*cos(angl30) + tempAx*sin(angl30)+ yO }
+point A xA yA
+cmark A
+mark_lb A
+trace A 255 0 0
+
+expression tempAx { xA-xO }
+expression tempAy { yA-yO }
+
+%create B with rotation
+expression xB { tempAx*cos(angl120) - tempAy*sin(angl120)+ xO }
+expression yB { tempAy*cos(angl120) + tempAx*sin(angl120)+ yO }
+point B xB yB
+cmark B
+mark_lb B
+%create C with rotation
+expression xC { tempAx*cos(angl240) - tempAy*sin(angl240)+ xO }
+expression yC { tempAy*cos(angl240) + tempAx*sin(angl240)+ yO }
+point C xC yC
+cmark C
+mark_lb C
+
+drawdashsegment  A  B
+drawdashsegment  A  C
+drawdashsegment  B C
+
+drawarc A B m_ang
+drawarc B C m_ang
+drawarc C A m_ang
+
+%color 200 200 200
+%fillarc A B m_ang
+%fillarc B C m_ang
+%fillarc C A m_ang
+%color 0 0 0
+
+
+
+
